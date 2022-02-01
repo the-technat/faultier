@@ -1,0 +1,16 @@
+version: "3"
+services:
+  wiki:
+    image: requarks/wiki:2
+    volumes:
+      - /volumes/jswiki/wiki.sqlite:/wiki/wiki.sqlite
+    environment:
+      DB_TYPE: sqlite
+      DB_FILEPATH: /wiki/wiki.sqlite
+      SSL_ACTIVE: 1
+      LETSENCRYPT_DOMAIN: wiki.technat.cloud
+      LETSENCRYPT_EMAIL: root@technat.cloud
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+      - "443:3443"
