@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  technat-cloud-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: technat-cloud-runner
+    restart: always
+    volumes:
+      - /volumes/runners/technat_cloud/config/:/etc/gitlab-runner/
+      - /var/run/docker.sock:/var/run/docker.sock
