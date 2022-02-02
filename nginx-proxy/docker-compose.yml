@@ -4,26 +4,31 @@ services:
   nginx-proxy:
     image: nginxproxy/nginx-proxy
     container_name: nginx-proxy
-    restart: always
-    network_mode: bridge
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+    network_mode: bridge
+    environment:
+      ENABLE_IPV6: true
     volumes:
-      - /volumes/nginx-proxy/conf:/etc/nginx/conf.d
-      - /volumes/nginx-proxy/vhost:/etc/nginx/vhost.d
-      - /volumes/nginx-proxy/html:/usr/share/nginx/html
+      - ./conf:/etc/nginx/conf.d
+      - ./vhost:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
       - /volumes/nginx-proxy/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   acme-companion:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
-    restart: always
+    restart: unless-stopped
     network_mode: bridge
-    volumes_from:
-      - nginx-proxy
+    environment:
+      NGINX_PROXY_CONTAINER: nginx-proxy
     volumes:
-      - /volumes/nginx-proxy/certs:/etc/nginx/certs:rw
+      - ./conf:/etc/nginx/conf.d
+      - ./vhost:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
       - /volumes/nginx-proxy/acme:/etc/acme.sh
+      - /volumes/nginx-proxy/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
