@@ -6,6 +6,6 @@ services:
     container_name: js-buchsi-runner
     restart: always
     volumes:
-      - /volumes/runners/js-buchsi/config/:/etc/gitlab-runner/
+      - ./config/:/etc/gitlab-runner/
       - /volumes/runners/js-buchsi/cache:/cache
       - /var/run/docker.sock:/var/run/docker.sock

@@ -25,6 +25,7 @@ services:
     network_mode: bridge
     environment:
       NGINX_PROXY_CONTAINER: nginx-proxy
+      DEFAULT_EMAIL: root@technat.cloud
     volumes:
       - ./conf:/etc/nginx/conf.d
       - ./vhost:/etc/nginx/vhost.d
