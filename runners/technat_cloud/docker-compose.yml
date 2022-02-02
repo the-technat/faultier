@@ -5,7 +5,13 @@ services:
     image: gitlab/gitlab-runner:latest
     container_name: technat-cloud-runner
     restart: always
+    networks:
+      - faultier
     volumes:
       - ./config/:/etc/gitlab-runner/
       - /volumes/runners/technat_cloud/cache:/cache
       - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  faultier:
+    external: true

@@ -14,4 +14,9 @@ services:
       LETSENCRYPT_HOST: wiki.technat.cloud
       LETSENCRYPT_EMAIL: root@technat.cloud
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+     - faultier
+
+networks:
+  faultier:
+    external: true

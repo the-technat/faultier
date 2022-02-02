@@ -8,7 +8,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    network_mode: bridge
+    networks:
+      - faultier
     environment:
       ENABLE_IPV6: true
     volumes:
@@ -22,7 +23,8 @@ services:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - faultier
     environment:
       NGINX_PROXY_CONTAINER: nginx-proxy
       DEFAULT_EMAIL: root@technat.cloud
@@ -33,3 +35,7 @@ services:
       - /volumes/nginx-proxy/acme:/etc/acme.sh
       - /volumes/nginx-proxy/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  faultier:
+    external: true

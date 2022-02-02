@@ -5,6 +5,8 @@ services:
     image: gitlab/gitlab-runner:latest
     container_name: k8s-at-hetzner-runner
     restart: always
+    networks:
+     - faultier
     deploy:
       resources:
         limits:
@@ -13,3 +15,7 @@ services:
       - ./config/:/etc/gitlab-runner/
       - /volumes/runners/k8s_at_hetzner/cache/:/cache
       - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  faultier:
+    external: true
