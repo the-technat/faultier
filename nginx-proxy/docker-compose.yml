@@ -10,8 +10,8 @@ services:
       - "443:443"
     networks:
       - faultier
-    environment:
-      ENABLE_IPV6: true
+        #environment:
+      #ENABLE_IPV6: true
     volumes:
       - ./conf:/etc/nginx/conf.d
       - ./vhost:/etc/nginx/vhost.d

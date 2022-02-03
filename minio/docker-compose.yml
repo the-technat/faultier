@@ -3,7 +3,10 @@ version: '3.7'
 # Settings and configurations that are common for all containers
 x-minio-common: &minio-common
   image: quay.io/minio/minio:RELEASE.2022-02-01T18-00-14Z
-  command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+  command: server --console-address "0.0.0.0:9001" http://minio{1...4}/data{1...2}
+  restart: unless-stopped
+  networks:
+    - faultier
   expose:
     - "9000"
     - "9001"
@@ -22,8 +25,6 @@ services:
   minio1:
     <<: *minio-common
     hostname: minio1
-    networks:
-      - faultier
     volumes:
       - /volumes/minio/data1-1:/data1
       - /volumes/minio/data1-2:/data2
@@ -31,8 +32,6 @@ services:
   minio2:
     <<: *minio-common
     hostname: minio2
-    networks:
-      - faultier
     volumes:
       - /volumes/minio/data2-1:/data1
       - /volumes/minio/data2-2:/data2
@@ -40,8 +39,6 @@ services:
   minio3:
     <<: *minio-common
     hostname: minio3
-    networks:
-      - faultier
     volumes:
       - /volumes/minio/data3-1:/data1
       - /volumes/minio/data3-2:/data2
@@ -49,47 +46,28 @@ services:
   minio4:
     <<: *minio-common
     hostname: minio4
-    networks:
-      - faultier
     volumes:
       - /volumes/minio/data4-1:/data1
       - /volumes/minio/data4-2:/data2
 
   nginx:
     image: nginx:alpine
-    hostname: minio-nginx
+    hostname: nginx
     networks:
       - faultier
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     environment:
-      VIRTUAL_HOST: object.technat.cloud
-      VIRTUAL_PORT: 9000
-      LETSENCRYPT_HOST: object.technat.cloud
+      VIRTUAL_HOST: object.technat.cloud,object-console.technat.cloud
+      LETSENCRYPT_HOST: object.technat.cloud,object-console.technat.cloud
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_TEST: true
+      LETSENCRYPT_SINGLE_DOMAIN_CERTS: true
     depends_on:
       - minio1
       - minio2
       - minio3
       - minio4
-
-  nginx-console:
-    image: nginx:1.19.2-alpine
-    hostname: nginx-console
-    restart: always
-    volumes:
-      - ./nginx-console.conf:/etc/nginx/nginx.conf:ro
-    environment:
-      VIRTUAL_HOST: object-console.technat.cloud
-      VIRTUAL_PORT: 9001
-      LETSENCRYPT_HOST: object-console.technat.cloud
-    networks:
-      - faultier
-    depends_on:
-      - minio1
-      - minio2
-      - minio3
-
-
 
 networks:
   faultier:
