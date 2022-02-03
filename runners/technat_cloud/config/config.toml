@@ -12,10 +12,18 @@ check_interval = 3
   limit = 2
   request_concurrency = 2
   [runners.custom_build_dir]
-  [runners.cache]
+    [runners.cache]
+    Type = "s3"
+    Path = "technat_cloud"
+    Shared = true
     [runners.cache.s3]
-    [runners.cache.gcs]
-    [runners.cache.azure]
+      ServerAddress = "object.technat.cloud"
+      BucketName = "gitlab-runner-cache"
+      BucketLocation = "us-east-1"
+      Insecure = false
+      AuthenticationType = "access-key"
+      AccessKey = "gitlab-runner-cache"
+      SecretKey = "yPjwFLYkoxOgDXTktltgsUzBoeI2WtYrzU7pxJ4w"
   [runners.docker]
     tls_verify = false
     image = "docker:stable"
@@ -23,5 +31,5 @@ check_interval = 3
     disable_entrypoint_overwrite = false
     oom_kill_disable = false
     disable_cache = false
-    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock"]
     shm_size = 0
