@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  technat-ch-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: technat-ch-runner
+    restart: always
+    networks:
+      - faultier
+    volumes:
+      - ./config/:/etc/gitlab-runner/
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  faultier:
+    external: true
