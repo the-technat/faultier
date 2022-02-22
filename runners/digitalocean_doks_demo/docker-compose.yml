@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  digitalocean-doks-demo-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: digitalocean-doks-demo-runner
+    restart: always
+    networks:
+      - faultier
+    volumes:
+      - ./config/:/etc/gitlab-runner/
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  faultier:
+    external: true
