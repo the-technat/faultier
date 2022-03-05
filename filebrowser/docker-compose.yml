@@ -1,0 +1,22 @@
+---
+version: "3"
+services:
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    volumes:
+      - /volumes/filebrowser/data:/srv
+      - /volumes/filebrowser/filebrowser.db:/filebrowser.db
+    environment:
+      VIRTUAL_HOST: file.technat.dev
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_HOST: file.technat.dev
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+     - faultier
+
+networks:
+  faultier:
+    external: true
