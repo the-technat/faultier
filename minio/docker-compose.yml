@@ -2,7 +2,7 @@ version: '3.7'
 
 # Settings and configurations that are common for all containers
 x-minio-common: &minio-common
-  image: quay.io/minio/minio:RELEASE.2022-03-05T06-32-39Z
+  image: quay.io/minio/minio:RELEASE.2022-04-16T04-26-02Z
   command: server --console-address "0.0.0.0:9001" http://minio{1...4}/data{1...2}
   restart: unless-stopped
   networks:
