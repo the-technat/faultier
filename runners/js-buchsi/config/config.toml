@@ -17,7 +17,7 @@ check_interval = 3
     Path = "js-buchsi"
     Shared = true
     [runners.cache.s3]
-      ServerAddress = "object.technat.cloud"
+      ServerAddress = "s3.technat.ch"
       BucketName = "gitlab-runner-cache"
       BucketLocation = "us-east-1"
       Insecure = false

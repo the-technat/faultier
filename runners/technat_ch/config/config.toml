@@ -13,7 +13,7 @@ check_interval = 3
   request_concurrency = 2
   [runners.custom_build_dir]
   [runners.cache.s3]
-      ServerAddress = "object.technat.cloud"
+      ServerAddress = "s3.technat.ch"
       BucketName = "gitlab-runner-cache"
       BucketLocation = "us-east-1"
       Insecure = false

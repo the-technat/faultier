@@ -13,7 +13,7 @@ x-minio-common: &minio-common
   env_file:
     - .env
   environment:
-    MINIO_BROWSER_REDIRECT_URL: https://object-console.technat.cloud
+    MINIO_BROWSER_REDIRECT_URL: https://s3-console.technat.ch
   healthcheck:
     test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
     interval: 30s
@@ -60,8 +60,8 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     environment:
-      VIRTUAL_HOST: object.technat.cloud,object-console.technat.cloud
-      LETSENCRYPT_HOST: object.technat.cloud,object-console.technat.cloud
+      VIRTUAL_HOST: s3.technat.ch,s3-console.technat.ch
+      LETSENCRYPT_HOST: s3.technat.ch,s3-console.technat.ch
       VIRTUAL_PORT: 9000
       LETSENCRYPT_SINGLE_DOMAIN_CERTS: true
     depends_on:
