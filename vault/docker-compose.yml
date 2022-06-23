@@ -9,8 +9,8 @@ services:
       - .env # vaultwarden config (secure)
     environment:
       # proxy config
-      VIRTUAL_HOST: vault.technat.dev
-      LETSENCRYPT_HOST: vault.technat.dev
+      VIRTUAL_HOST: vault.technat.ch
+      LETSENCRYPT_HOST: vault.technat.ch
       VIRTUAL_PORT: 80
       # vaultwarden config
       SIGNUPS_ALLOWED: false
@@ -18,7 +18,7 @@ services:
       SIGNUPS_DOMAINS_WHITELIST: technat.ch
       TRASH_AUTO_DELETE_DAYS: 180
       INCOMPLETE_2FA_TIME_LIMIT: 3
-      DOMAIN: https://vault.technat.dev
+      DOMAIN: https://vault.technat.ch
       LOGIN_RATELIMIT_SECONDS: 60
       LOGIN_RATELIMIT_MAX_BURST: 10
       AUTHENTICATOR_DISABLE_TIME_DRIFT: true
