@@ -1,2 +1,3 @@
 minio/.env
 wg-easy/.env
+vault/.env
